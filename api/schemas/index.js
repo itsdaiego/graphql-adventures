@@ -2,17 +2,30 @@ const {
   GraphQLSchema,
   GraphQLObjectType,
   GraphQLString,
+  GraphQLInt,
 } = require('graphql')
-const fetch = require('node-fetch')
+const user = require('../services/user')
 
 const UserType = new GraphQLObjectType({
   name: 'UserType',
   description: '...',
 
   fields: () => ({
+    login: {
+      type: GraphQLString,
+      resolve: data => data.login,
+    },
+    id: {
+      type: GraphQLInt,
+      resolve: data => data.id,
+    },
     name: {
       type: GraphQLString,
-      resolve: () => 'drodrigo',
+      resolve: data => data.name,
+    },
+    created_at: {
+      type: GraphQLString,
+      resolve: data => data.created_at,
     },
   }),
 })
@@ -30,7 +43,7 @@ module.exports = new GraphQLSchema({
             type: GraphQLString,
           },
         },
-        resolve: () => fetch('https://www.google.com'),
+        resolve: (root, args) => user.fetchUser(args.name)
       },
     }),
   }),
