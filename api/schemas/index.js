@@ -3,6 +3,7 @@ const {
   GraphQLObjectType,
   GraphQLString,
   GraphQLInt,
+  GraphQLList,
 } = require('graphql')
 const user = require('../services/user')
 
@@ -32,8 +33,7 @@ const UserType = new GraphQLObjectType({
 
 module.exports = new GraphQLSchema({
   query: new GraphQLObjectType({
-    name: 'Query',
-    description: '...',
+    name: 'Github',
 
     fields: () => ({
       user: {
@@ -43,7 +43,16 @@ module.exports = new GraphQLSchema({
             type: GraphQLString,
           },
         },
-        resolve: (root, args) => user.fetchUser(args.name)
+        resolve: (root, args) => user.fetch(args.name),
+      },
+      users: {
+        type: new GraphQLList(UserType),
+        args: {
+          since: {
+            type: GraphQLInt,
+          },
+        },
+        resolve: (root, args) => user.fetchAll(args.since),
       },
     }),
   }),
