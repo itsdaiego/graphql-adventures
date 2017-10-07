@@ -7,8 +7,8 @@ const {
 } = require('graphql')
 const user = require('../services/user')
 
-const UserType = new GraphQLObjectType({
-  name: 'UserType',
+const UserListType = new GraphQLObjectType({
+  name: 'UserListType',
   description: '...',
 
   fields: () => ({
@@ -37,7 +37,7 @@ module.exports = new GraphQLSchema({
 
     fields: () => ({
       user: {
-        type: UserType,
+        type: UserListType,
         args: {
           name: {
             type: GraphQLString,
@@ -46,7 +46,7 @@ module.exports = new GraphQLSchema({
         resolve: (root, args) => user.fetch(args.name),
       },
       users: {
-        type: new GraphQLList(UserType),
+        type: new GraphQLList(UserListType),
         args: {
           since: {
             type: GraphQLInt,

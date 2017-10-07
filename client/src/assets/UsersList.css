@@ -1,0 +1,12 @@
+.UsersList p {
+  margin-left: 40px;
+  font-weight: 700;
+  font-size: 30px;
+}
+.UsersList ul {
+  list-style: none;
+  
+}
+.UsersList img {
+  max-width: 200px;
+}
