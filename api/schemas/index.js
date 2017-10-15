@@ -12,6 +12,10 @@ const UserListType = new GraphQLObjectType({
   description: '...',
 
   fields: () => ({
+    avatar_url: {
+      type: GraphQLString,
+      resolve: data => data.avatar_url,
+    },
     login: {
       type: GraphQLString,
       resolve: data => data.login,

@@ -11,7 +11,8 @@ class UsersList extends Component {
   }
 
   componentDidMount() {
-    this.setState(() => ({imageUrl: 'https://avatars1.githubusercontent.com/u/4576630?v=4&s=400' }))
+    const imageUrl = 'https://avatars1.githubusercontent.com/u/4576630?v=4&s=400'
+    this.setState(() => ({imageUrl }))
   }
 
   render() {
