@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './assets/index.css';
-import UsersListFeed from './components/UsersListFeed';
+import App from './components/App';
 import registerServiceWorker from './registerServiceWorker';
 import { 
   ApolloClient,
@@ -17,7 +17,7 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <UsersListFeed /> 
+    <App /> 
   </ApolloProvider>,
   document.getElementById('root')
 );
