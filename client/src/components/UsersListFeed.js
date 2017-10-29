@@ -7,10 +7,9 @@ import {
 
 class UsersList extends Component {
   componentWillMount() {
+    console.log('this props', this.props.data)
     if (this.props.data.loading) {
-      this.props.data.user = {
-        avatar_url: 'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png'
-      }
+      this.props.data.users = []
     }
   }
 
@@ -18,9 +17,13 @@ class UsersList extends Component {
     return (
       <div className="UsersList">
         <p> Fetched users: </p>
+        {
+          this.props.data.users.map(user => {
+            return <img alt='user profile' src={user.avatar_url} />
+          })
+        }
         <ul>
           <li>
-            <img alt='user profile' src={this.props.data.user.avatar_url} />
           </li>
         </ul>
       </div>
@@ -30,8 +33,9 @@ class UsersList extends Component {
 
 const UsersListFeed = graphql(gql`
   query {
-    user (name: "drodrigo") {
+    users {
       avatar_url
+      login
     }
   }
 `)(UsersList);
