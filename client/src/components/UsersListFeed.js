@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router'
 import '../assets/UsersListFeed.css';
 import {
   gql,
@@ -7,19 +8,31 @@ import {
 
 class UsersList extends Component {
   componentWillMount() {
-    console.log('this props', this.props.data)
     if (this.props.data.loading) {
       this.props.data.users = []
     }
   }
 
+  redirectToUser = (user) => {
+    console.log('whos user', user)
+    this.setState({ redirect: true })
+    this.props.data.currentUser = user
+  }
+
   render() {
+    if (this.state && this.state.redirect) {
+      return <Redirect to={{
+        pathname: '/user',
+        data: this.props.data.currentUser
+      }} />
+    }
+
     return (
       <div className="UsersList">
         <p> Fetched users: </p>
         {
           this.props.data.users.map(user => {
-            return <img alt='user profile' src={user.avatar_url} />
+            return <img onClick={() => this.redirectToUser(user)} alt='user profile' src={user.avatar_url} />
           })
         }
         <ul>

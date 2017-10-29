@@ -1,5 +1,6 @@
 import React from 'react';
 import UsersListFeed from './UsersListFeed'
+import UserFeed from './UserFeed'
 import {
   BrowserRouter as Router,
   Route,
@@ -14,6 +15,7 @@ const App = () => (
       </ul>
       <hr/>
       <Route path="/users-list" component={UsersListFeed}/>
+      <Route path="/user" component={UserFeed}/>
     </div>
   </Router>
 )
