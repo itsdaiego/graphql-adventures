@@ -14,7 +14,6 @@ class UsersList extends Component {
   }
 
   redirectToUser = (user) => {
-    console.log('whos user', user)
     this.setState({ redirect: true })
     this.props.data.currentUser = user
   }

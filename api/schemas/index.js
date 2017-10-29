@@ -6,9 +6,30 @@ const {
   GraphQLList,
 } = require('graphql')
 const user = require('../services/user')
+const repository = require('../services/repository')
 
-const UserListType = new GraphQLObjectType({
-  name: 'UserListType',
+const RepositoryType = new GraphQLObjectType({
+  name: 'RepositoryType',
+  description: '...',
+
+  fields: () => ({
+    name: {
+      type: GraphQLString,
+      resolve: data => data.name,
+    },
+    html_url: {
+      type: GraphQLString,
+      resolve: data => data.html_url,
+    },
+    description: {
+      type: GraphQLString,
+      resolve: data => data.description,
+    },
+  }),
+})
+
+const UserType = new GraphQLObjectType({
+  name: 'UserType',
   description: '...',
 
   fields: () => ({
@@ -32,6 +53,10 @@ const UserListType = new GraphQLObjectType({
       type: GraphQLString,
       resolve: data => data.created_at,
     },
+    repositories: {
+      type: new GraphQLList(RepositoryType),
+      resolve: data => repository.fetchAll(data.login),
+    },
   }),
 })
 
@@ -41,7 +66,7 @@ module.exports = new GraphQLSchema({
 
     fields: () => ({
       user: {
-        type: UserListType,
+        type: UserType,
         args: {
           name: {
             type: GraphQLString,
@@ -50,7 +75,7 @@ module.exports = new GraphQLSchema({
         resolve: (root, args) => user.fetch(args.name),
       },
       users: {
-        type: new GraphQLList(UserListType),
+        type: new GraphQLList(UserType),
         args: {
           since: {
             type: GraphQLInt,
