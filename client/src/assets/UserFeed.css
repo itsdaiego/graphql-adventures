@@ -1,0 +1,16 @@
+.User p, span {
+  margin-left: 10px;
+}
+
+.User p.profile {
+  font-size: 25px;
+}
+
+.User a {
+  margin-top: 100px;
+}
+
+.User img {
+  max-width: 200px;
+      
+}

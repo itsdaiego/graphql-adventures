@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../assets/User.css';
+import '../assets/UserFeed.css';
 import {
   gql,
   graphql,
@@ -7,16 +7,28 @@ import {
 
 class User extends Component {
   componentWillMount() {
-    if (this.props.loading) {
+    if (this.props.data.loading) {
+      this.props.data.user = {
+        repositories: []
+      }
     }
   }
 
   render() {
-    console.log('this props', this.props)
     return (
       <div className="User">
-        <p> { this.props.location.data.login } </p>
+        <p className='profile'> { this.props.location.data.login } </p>
         <img alt='user profile' src={this.props.location.data.avatar_url} />
+        {
+          this.props.data.user.repositories.map(repository => {
+            return (
+              <div>
+                <a href={ repository.html_url }> { repository.name } </a>
+                <span> { repository.description } </span>
+              </div>
+            )
+          })
+        }
       </div>
     );
   }
@@ -27,6 +39,11 @@ const UserFeed = graphql(gql`
     user (name: $name) {
       avatar_url
       login
+      repositories {
+        name
+        html_url
+        description
+      }
     }
   }`, {
     options: (props) => ({
