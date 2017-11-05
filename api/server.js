@@ -8,7 +8,7 @@ app.use(cors())
 
 app.use('/graphql', graphqlHTTP({
   schema: schemas,
-  graphiql: true
-}));
+  graphiql: true,
+}))
 
 app.listen('4000')

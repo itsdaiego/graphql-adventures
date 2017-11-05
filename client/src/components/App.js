@@ -13,6 +13,7 @@ const App = () => (
       <ul>
         <li><Link to="/users-list">Users List</Link></li>
       </ul>
+      <button> Login </button>
       <hr/>
       <Route path="/users-list" component={UsersListFeed}/>
       <Route path="/user" component={UserFeed}/>

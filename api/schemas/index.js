@@ -4,9 +4,11 @@ const {
   GraphQLString,
   GraphQLInt,
   GraphQLList,
+  GraphQLNonNull,
 } = require('graphql')
 const user = require('../services/user')
 const repository = require('../services/repository')
+require('dotenv').config()
 
 const RepositoryType = new GraphQLObjectType({
   name: 'RepositoryType',
@@ -24,6 +26,18 @@ const RepositoryType = new GraphQLObjectType({
     description: {
       type: GraphQLString,
       resolve: data => data.description,
+    },
+  }),
+})
+
+const FollowType = new GraphQLObjectType({
+  name: 'FollowType',
+  description: '...',
+
+  fields: () => ({
+    message: {
+      type: GraphQLString,
+      resolve: data => data.message,
     },
   }),
 })
@@ -62,7 +76,7 @@ const UserType = new GraphQLObjectType({
 
 module.exports = new GraphQLSchema({
   query: new GraphQLObjectType({
-    name: 'Github',
+    name: 'Queries',
 
     fields: () => ({
       user: {
@@ -82,6 +96,27 @@ module.exports = new GraphQLSchema({
           },
         },
         resolve: (root, args) => user.fetchAll(args.since),
+      },
+    }),
+  }),
+  mutation: new GraphQLObjectType({
+    name: 'Mutations',
+
+    fields: () => ({
+      followUser: {
+        type: FollowType,
+        args: {
+          name: {
+            type: new GraphQLNonNull(GraphQLString),
+          },
+        },
+        resolve: (root, args) => user.follow(
+          args.name,
+          {
+            username: process.env.USERNAME,
+            password: process.env.PASSWORD,
+          }
+        ),
       },
     }),
   }),
