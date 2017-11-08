@@ -8,7 +8,6 @@ const {
 } = require('graphql')
 const user = require('../services/user')
 const repository = require('../services/repository')
-require('dotenv').config()
 
 const RepositoryType = new GraphQLObjectType({
   name: 'RepositoryType',
@@ -111,6 +110,7 @@ module.exports = new GraphQLSchema({
       },
     }),
   }),
+
   mutation: new GraphQLObjectType({
     name: 'Mutations',
 
@@ -123,11 +123,7 @@ module.exports = new GraphQLSchema({
           },
         },
         resolve: (root, args) => user.follow(
-          args.name,
-          {
-            username: process.env.USERNAME,
-            password: process.env.PASSWORD,
-          }
+          args.name
         ),
       },
       unfollowUser: {
@@ -138,11 +134,7 @@ module.exports = new GraphQLSchema({
           },
         },
         resolve: (root, args) => user.unfollow(
-          args.name,
-          {
-            username: process.env.USERNAME,
-            password: process.env.PASSWORD,
-          }
+          args.name
         ),
       },
     }),
