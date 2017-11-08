@@ -42,6 +42,18 @@ const FollowType = new GraphQLObjectType({
   }),
 })
 
+const UnfollowType = new GraphQLObjectType({
+  name: 'UnfollowType',
+  description: '...',
+
+  fields: () => ({
+    message: {
+      type: GraphQLString,
+      resolve: data => data.message,
+    },
+  }),
+})
+
 const UserType = new GraphQLObjectType({
   name: 'UserType',
   description: '...',
@@ -111,6 +123,21 @@ module.exports = new GraphQLSchema({
           },
         },
         resolve: (root, args) => user.follow(
+          args.name,
+          {
+            username: process.env.USERNAME,
+            password: process.env.PASSWORD,
+          }
+        ),
+      },
+      unfollowUser: {
+        type: UnfollowType,
+        args: {
+          name: {
+            type: new GraphQLNonNull(GraphQLString),
+          },
+        },
+        resolve: (root, args) => user.unfollow(
           args.name,
           {
             username: process.env.USERNAME,

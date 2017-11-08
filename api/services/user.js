@@ -26,8 +26,24 @@ const follow = (name, credentials) => {
     })
 }
 
+const unfollow = (name, credentials) => {
+  const me = new Github({
+    username: credentials.username,
+    password: credentials.password,
+  }).getUser()
+
+  return me.unfollow(name)
+    .then(() => {
+      return { message: 'success' }
+    })
+    .catch((err) => {
+      return { message: err }
+    })
+}
+
 module.exports = {
   fetch,
   fetchAll,
   follow,
+  unfollow,
 }
