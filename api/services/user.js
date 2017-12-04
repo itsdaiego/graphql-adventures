@@ -20,7 +20,10 @@ const fetchAll = since =>
 const follow = (name) => {
   return me.follow(name)
     .then(() => {
-      return { message: `now you're following ${name}` }
+      return {
+        status: 'success',
+        message: `now you're following ${name}`,
+      }
     })
     .catch((err) => {
       return { message: err }
@@ -30,10 +33,16 @@ const follow = (name) => {
 const unfollow = (name) => {
   return me.unfollow(name)
     .then(() => {
-      return { message: `you're no longer following ${name}` }
+      return {
+        status: 'success',
+        message: `you're no longer following ${name}`,
+      }
     })
     .catch((err) => {
-      return { message: err }
+      return {
+        status: 'error',
+        message: err,
+      }
     })
 }
 

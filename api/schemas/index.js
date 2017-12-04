@@ -38,6 +38,10 @@ const FollowType = new GraphQLObjectType({
       type: GraphQLString,
       resolve: data => data.message,
     },
+    status: {
+      type: GraphQLString,
+      resolve: data => data.status,
+    },
   }),
 })
 
@@ -49,6 +53,10 @@ const UnfollowType = new GraphQLObjectType({
     message: {
       type: GraphQLString,
       resolve: data => data.message,
+    },
+    status: {
+      type: GraphQLString,
+      resolve: data => data.status,
     },
   }),
 })
