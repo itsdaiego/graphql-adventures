@@ -3,10 +3,10 @@ Playing aroung with GraphQL using Node.js
 
 ### Installation ###
 
-Inside both `api` and `client` folders run the following commands:
+Simply run these commands in the root directory:
 
-- `npm install`
-- `npm start`
+- `docker-compose build`
+- `docker-compose up`
 
 Go to `localhost:3000`
 
