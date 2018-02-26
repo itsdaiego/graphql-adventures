@@ -1,0 +1,17 @@
+version: '2'
+services:
+  api:
+    build: ./api/
+    ports:
+      - "4000:4000"
+    volumes:
+      - "./api:/api"
+    entrypoint: "npm run start"
+
+  client:
+    build: ./client/
+    ports:
+      - "3000:3000"
+    volumes:
+      - "./client:/client"
+    entrypoint: "npm start"
